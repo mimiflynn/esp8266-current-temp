@@ -3,8 +3,10 @@
 #include <TM1637Display.h>
 #include "WundergroundClient.h"
 
-const int CLK = D2; // Set the CLK pin connection to the display
-const int DIO = D3; // Set the DIO pin connection to the display
+// Set the CLK pin connection to the display
+const int CLK = D2;
+// Set the DIO pin connection to the display
+const int DIO = D3;
 
 // WIFI
 const char* WIFI_SSID = "";
@@ -22,21 +24,25 @@ const String WUNDERGROUND_STATE = "NY";
 const String WUNDERGROUND_CITY = "New_York_City";
 
 
+// set up the 4-Digit Display.
 TM1637Display display(CLK, DIO);
 
 WundergroundClient wunderground(IS_METRIC);
 
+// flag changed in the ticker function every 10 minutes
 bool readyForWeatherUpdate = false;
 
 Ticker ticker;
 
 void setReadyForWeatherUpdate();
+void updateWeather();
 
 void setup() {
   Serial.begin(115200);
   Serial.println();
   Serial.println("Setting up");
 
+  // set the diplay to maximum brightness
   display.setBrightness(0x0a);
   WiFi.begin(WIFI_SSID, WIFI_PWD);
 
@@ -75,5 +81,6 @@ void updateWeather() {
   String temp = wunderground.getCurrentTemp();
   Serial.println("Current Temp:" + temp);
   display.showNumberDec(temp.toInt());
+  Serial.println("Setting readyForUpdate to false");
+  readyForWeatherUpdate = false;
 }
-
