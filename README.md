@@ -16,6 +16,8 @@ This is a mix of several projects to show the current tempurature via Wundergrou
 
 https://forecast-v3.weather.gov/documentation
 
+https://github.com/squix78/json-streaming-parser
+
 
 ## Acknowledgements
 

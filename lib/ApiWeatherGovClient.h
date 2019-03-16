@@ -42,15 +42,13 @@ private:
   long localEpoc = 0;
   int gmtOffset = 1;
   long localMillisAtUpdate;
-  boolean isMetric = true;
   String currentTemp;
 
   void doUpdate(String url);
 
 public:
-  ApiWeatherGovClient(boolean isMetric);
+  ApiWeatherGovClient();
   void updateConditions(String apiKey, String language, String country, String state, String city);
-  void initMetric(boolean isMetric); // Added by fowlerk, 12/22/16, as an option to change metric setting other than at instantiation
 
   String getCurrentTemp();
 

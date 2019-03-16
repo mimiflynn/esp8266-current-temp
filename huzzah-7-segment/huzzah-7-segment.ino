@@ -9,7 +9,6 @@ const char *WIFI_SSID = "";
 const char *WIFI_PWD = "";
 
 // Wunderground Settings
-const boolean IS_METRIC = false;
 const String WEATHER_STATION = "KNYC";
 
 // Update every 10 minutes
@@ -28,7 +27,7 @@ Ticker ticker;
 Adafruit_7segment matrix = Adafruit_7segment();
 
 // init weather api library
-WeatherClient weather(IS_METRIC);
+WeatherClient weather();
 
 void setup()
 {

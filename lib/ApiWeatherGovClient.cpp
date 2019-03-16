@@ -32,26 +32,15 @@ See more at http://blog.squix.ch
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include "ApiWeatherGovClient.h"
-bool usePM = false; // Set to true if you want to use AM/PM time disaply
-bool isPM = false;  // JJG added ///////////
 
 const String API_URL = "api.weather.gov";
 
-ApiWeatherGovClient::ApiWeatherGovClient(boolean _isMetric)
+ApiWeatherGovClient::ApiWeatherGovClient()
 {
-  isMetric = _isMetric;
 }
-
-// Added by fowlerk, 12/22/16, as an option to change metric setting other than at instantiation
-void ApiWeatherGovClient::initMetric(boolean _isMetric)
-{
-  isMetric = _isMetric;
-}
-// end add fowlerk, 12/22/16
 
 void ApiWeatherGovClient::updateConditions(String stationId)
 {
-  isForecast = false;
   doUpdate("/stations/" + stationId + "/observations/latest");
 }
 
@@ -113,6 +102,7 @@ void ApiWeatherGovClient::whitespace(char c)
   Serial.println("whitespace");
 }
 
+// start parser event methods
 void ApiWeatherGovClient::startDocument()
 {
   Serial.println("start document");
@@ -125,6 +115,18 @@ void ApiWeatherGovClient::key(String key)
 
 void ApiWeatherGovClient::value(String value)
 {
+  Serial.println("currentKey " + currentKey);
+  Serial.println("value " + value);
+  if (parentKey == "properties")
+  {
+    if (parentKey == "temperature")
+    {
+      if (currentKey == "value")
+      {
+        currentTemp = value;
+      }
+    }
+  }
 }
 
 void ApiWeatherGovClient::endArray()
@@ -148,6 +150,7 @@ void ApiWeatherGovClient::endDocument()
 void ApiWeatherGovClient::startArray()
 {
 }
+// end parser event methods
 
 String ApiWeatherGovClient::getCurrentTemp()
 {
