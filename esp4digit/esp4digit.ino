@@ -1,7 +1,7 @@
 #include <ESP8266WiFi.h>
 #include <Ticker.h>
 #include <TM1637Display.h>
-#include "WundergroundClient.h"
+#include "../lib/ApiWeatherGovClient.h"
 
 // Set the CLK pin connection to the display
 const int CLK = D2;
@@ -9,16 +9,12 @@ const int CLK = D2;
 const int DIO = D3;
 
 // WIFI
-const char* WIFI_SSID = "";
-const char* WIFI_PWD = "";
+const char *WIFI_SSID = "";
+const char *WIFI_PWD = "";
 
-// Wunderground Settings
+// API Settings
 const boolean IS_METRIC = false;
-const String WUNDERGRROUND_API_KEY = "";
-const String WUNDERGRROUND_LANGUAGE = "EN";
-const String WUNDERGROUND_COUNTRY = "US";
-const String WUNDERGROUND_STATE = "NY";
-const String WUNDERGROUND_CITY = "New_York_City";
+const String WEATHER_STATION = "KNYC";
 
 // Update every 10 minutes
 const int UPDATE_INTERVAL_SECS = 10 * 60;
@@ -35,11 +31,11 @@ Ticker ticker;
 // set up the 4-Digit Display.
 TM1637Display display(CLK, DIO);
 
-// init wunderground api library
-WundergroundClient wunderground(IS_METRIC);
+// init weather api library
+WeatherClient weather(IS_METRIC);
 
-
-void setup() {
+void setup()
+{
   Serial.begin(115200);
   Serial.println();
   Serial.println("Setting up");
@@ -52,7 +48,8 @@ void setup() {
 
   // Show status of WiFi connection
   int counter = 0;
-  while (WiFi.status() != WL_CONNECTED) {
+  while (WiFi.status() != WL_CONNECTED)
+  {
     delay(500);
     Serial.print(".");
     counter++;
@@ -66,23 +63,27 @@ void setup() {
   updateWeather();
 }
 
-void loop() {
-  if (readyForWeatherUpdate) {
+void loop()
+{
+  if (readyForWeatherUpdate)
+  {
     updateWeather();
   }
 }
 
-void setReadyForWeatherUpdate() {
+void setReadyForWeatherUpdate()
+{
   Serial.println("Setting readyForUpdate to true");
   readyForWeatherUpdate = true;
 }
 
-void updateWeather() {
+void updateWeather()
+{
   Serial.println("Updating weather");
-  wunderground.initMetric(IS_METRIC);
-  wunderground.updateConditions(WUNDERGRROUND_API_KEY, WUNDERGRROUND_LANGUAGE, WUNDERGROUND_COUNTRY, WUNDERGROUND_CITY);
+  weather.initMetric(IS_METRIC);
+  weather.updateConditions(WEATHER_STATION);
   Serial.println("Weather Updated");
-  String temp = wunderground.getCurrentTemp();
+  String temp = weather.getCurrentTemp();
   Serial.println("Current Temp:" + temp);
   display.showNumberDec(temp.toInt());
   Serial.println("Setting readyForUpdate to false");
