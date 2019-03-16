@@ -42,7 +42,6 @@ private:
   long localEpoc = 0;
   int gmtOffset = 1;
   long localMillisAtUpdate;
-  String date = "-";
   boolean isMetric = true;
   String currentTemp;
 
