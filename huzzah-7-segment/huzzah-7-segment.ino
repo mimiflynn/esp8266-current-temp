@@ -2,7 +2,7 @@
 #include <Ticker.h>
 #include <Adafruit_GFX.h>
 #include "Adafruit_LEDBackpack.h"
-#include "../lib/ApiWeatherGovClient.h"
+#include "libraries/ApiWeatherGovClient.h"
 
 // WIFI
 const char *WIFI_SSID = "";
@@ -27,7 +27,7 @@ Ticker ticker;
 Adafruit_7segment matrix = Adafruit_7segment();
 
 // init weather api library
-WeatherClient weather();
+ApiWeatherGovClient weather;
 
 void setup()
 {
@@ -79,7 +79,6 @@ void setReadyForWeatherUpdate()
 void updateWeather()
 {
   Serial.println("Updating weather");
-  weather.initMetric(IS_METRIC);
   weather.updateConditions(WEATHER_STATION);
   Serial.println("Weather Updated");
   String temp = weather.getCurrentTemp();

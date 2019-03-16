@@ -39,34 +39,33 @@ class ApiWeatherGovClient : public JsonListener
 private:
   String currentKey;
   String currentParent = "";
-  long localEpoc = 0;
-  int gmtOffset = 1;
-  long localMillisAtUpdate;
+
   String currentTemp;
 
   void doUpdate(String url);
 
 public:
   ApiWeatherGovClient();
-  void updateConditions(String apiKey, String language, String country, String state, String city);
 
-  String getCurrentTemp();
+  void updateConditions(String stationId){};
 
-  virtual void whitespace(char c);
+  String getCurrentTemp(){};
 
-  virtual void startDocument();
+  virtual void whitespace(char c){};
 
-  virtual void key(String key);
+  virtual void startDocument(){};
 
-  virtual void value(String value);
+  virtual void key(String key){};
 
-  virtual void endArray();
+  virtual void value(String value){};
 
-  virtual void endObject();
+  virtual void endArray(){};
 
-  virtual void endDocument();
+  virtual void endObject(){};
 
-  virtual void startArray();
+  virtual void endDocument(){};
 
-  virtual void startObject();
+  virtual void startArray(){};
+
+  virtual void startObject(){};
 };

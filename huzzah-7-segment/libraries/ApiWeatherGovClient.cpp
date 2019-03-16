@@ -117,6 +117,7 @@ void ApiWeatherGovClient::value(String value)
 {
   Serial.println("currentKey " + currentKey);
   Serial.println("value " + value);
+
   if (parentKey == "properties")
   {
     if (parentKey == "temperature")
@@ -129,113 +130,24 @@ void ApiWeatherGovClient::value(String value)
   }
 }
 
-void ApiWeatherGovClient::endArray()
-{
-}
-
-void ApiWeatherGovClient::startObject()
-{
-  currentParent = currentKey;
-}
+void ApiWeatherGovClient::endArray() {}
 
 void ApiWeatherGovClient::endObject()
 {
   currentParent = "";
 }
 
-void ApiWeatherGovClient::endDocument()
+void ApiWeatherGovClient::endDocument() {}
+
+void ApiWeatherGovClient::startObject()
 {
+  currentParent = currentKey;
 }
 
-void ApiWeatherGovClient::startArray()
-{
-}
+void ApiWeatherGovClient::startArray() {}
 // end parser event methods
 
 String ApiWeatherGovClient::getCurrentTemp()
 {
   return currentTemp;
-}
-
-String ApiWeatherGovClient::getMeteoconIcon(String iconText)
-{
-  if (iconText == "chanceflurries")
-    return "F";
-  if (iconText == "chancerain")
-    return "Q";
-  if (iconText == "chancesleet")
-    return "W";
-  if (iconText == "chancesnow")
-    return "V";
-  if (iconText == "chancetstorms")
-    return "S";
-  if (iconText == "clear")
-    return "B";
-  if (iconText == "cloudy")
-    return "Y";
-  if (iconText == "flurries")
-    return "F";
-  if (iconText == "fog")
-    return "M";
-  if (iconText == "hazy")
-    return "E";
-  if (iconText == "mostlycloudy")
-    return "Y";
-  if (iconText == "mostlysunny")
-    return "H";
-  if (iconText == "partlycloudy")
-    return "H";
-  if (iconText == "partlysunny")
-    return "J";
-  if (iconText == "sleet")
-    return "W";
-  if (iconText == "rain")
-    return "R";
-  if (iconText == "snow")
-    return "W";
-  if (iconText == "sunny")
-    return "B";
-  if (iconText == "tstorms")
-    return "0";
-
-  if (iconText == "nt_chanceflurries")
-    return "F";
-  if (iconText == "nt_chancerain")
-    return "7";
-  if (iconText == "nt_chancesleet")
-    return "#";
-  if (iconText == "nt_chancesnow")
-    return "#";
-  if (iconText == "nt_chancetstorms")
-    return "&";
-  if (iconText == "nt_clear")
-    return "2";
-  if (iconText == "nt_cloudy")
-    return "Y";
-  if (iconText == "nt_flurries")
-    return "9";
-  if (iconText == "nt_fog")
-    return "M";
-  if (iconText == "nt_hazy")
-    return "E";
-  if (iconText == "nt_mostlycloudy")
-    return "5";
-  if (iconText == "nt_mostlysunny")
-    return "3";
-  if (iconText == "nt_partlycloudy")
-    return "4";
-  if (iconText == "nt_partlysunny")
-    return "4";
-  if (iconText == "nt_sleet")
-    return "9";
-  if (iconText == "nt_rain")
-    return "7";
-  if (iconText == "nt_snow")
-    return "#";
-  if (iconText == "nt_sunny")
-    return "4";
-  if (iconText == "nt_tstorms")
-    return "&";
-
-  return ")";
 }
