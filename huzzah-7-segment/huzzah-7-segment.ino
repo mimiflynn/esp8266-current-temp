@@ -2,7 +2,7 @@
 #include <Ticker.h>
 #include <Adafruit_GFX.h>
 #include "Adafruit_LEDBackpack.h"
-#include "libraries/ApiWeatherGovClient.h"
+#include "libraries/WeatherClient.h"
 
 // WIFI
 const char *WIFI_SSID = "";
@@ -27,7 +27,7 @@ Ticker ticker;
 Adafruit_7segment matrix = Adafruit_7segment();
 
 // init weather api library
-ApiWeatherGovClient weather;
+WeatherClient weather;
 
 void setup()
 {

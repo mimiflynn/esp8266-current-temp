@@ -31,20 +31,20 @@ See more at http://blog.squix.ch
 
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
-#include "ApiWeatherGovClient.h"
+#include "WeatherClient.h"
 
 const String API_URL = "api.weather.gov";
 
-ApiWeatherGovClient::ApiWeatherGovClient()
+WeatherClient::WeatherClient()
 {
 }
 
-void ApiWeatherGovClient::updateConditions(String stationId)
+void WeatherClient::updateConditions(String stationId)
 {
   doUpdate("/stations/" + stationId + "/observations/latest");
 }
 
-void ApiWeatherGovClient::doUpdate(String url)
+void WeatherClient::doUpdate(String url)
 {
   JsonStreamingParser parser;
   parser.setListener(this);
@@ -97,23 +97,23 @@ void ApiWeatherGovClient::doUpdate(String url)
   }
 }
 
-void ApiWeatherGovClient::whitespace(char c)
+void WeatherClient::whitespace(char c)
 {
   Serial.println("whitespace");
 }
 
 // start parser event methods
-void ApiWeatherGovClient::startDocument()
+void WeatherClient::startDocument()
 {
   Serial.println("start document");
 }
 
-void ApiWeatherGovClient::key(String key)
+void WeatherClient::key(String key)
 {
   currentKey = String(key);
 }
 
-void ApiWeatherGovClient::value(String value)
+void WeatherClient::value(String value)
 {
   Serial.println("currentKey " + currentKey);
   Serial.println("value " + value);
@@ -130,24 +130,24 @@ void ApiWeatherGovClient::value(String value)
   }
 }
 
-void ApiWeatherGovClient::endArray() {}
+void WeatherClient::endArray() {}
 
-void ApiWeatherGovClient::endObject()
+void WeatherClient::endObject()
 {
   currentParent = "";
 }
 
-void ApiWeatherGovClient::endDocument() {}
+void WeatherClient::endDocument() {}
 
-void ApiWeatherGovClient::startObject()
+void WeatherClient::startObject()
 {
   currentParent = currentKey;
 }
 
-void ApiWeatherGovClient::startArray() {}
+void WeatherClient::startArray() {}
 // end parser event methods
 
-String ApiWeatherGovClient::getCurrentTemp()
+String WeatherClient::getCurrentTemp()
 {
   return currentTemp;
 }

@@ -34,7 +34,7 @@ See more at http://blog.squix.ch
 #include <JsonListener.h>
 #include <JsonStreamingParser.h>
 
-class ApiWeatherGovClient : public JsonListener
+class WeatherClient : public JsonListener
 {
 private:
   String currentKey;
@@ -45,27 +45,27 @@ private:
   void doUpdate(String url);
 
 public:
-  ApiWeatherGovClient();
+  WeatherClient();
 
-  void updateConditions(String stationId){};
+  void updateConditions(String stationId);
 
-  String getCurrentTemp(){};
+  String getCurrentTemp();
 
-  virtual void whitespace(char c){};
+  virtual void whitespace(char c);
 
-  virtual void startDocument(){};
+  virtual void startDocument();
 
-  virtual void key(String key){};
+  virtual void key(String key);
 
-  virtual void value(String value){};
+  virtual void value(String value);
 
-  virtual void endArray(){};
+  virtual void endArray();
 
-  virtual void endObject(){};
+  virtual void endObject();
 
-  virtual void endDocument(){};
+  virtual void endDocument();
 
-  virtual void startArray(){};
+  virtual void startArray();
 
-  virtual void startObject(){};
+  virtual void startObject();
 };
