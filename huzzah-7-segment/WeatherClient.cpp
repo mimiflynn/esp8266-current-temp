@@ -118,9 +118,9 @@ void WeatherClient::value(String value)
   Serial.println("currentKey " + currentKey);
   Serial.println("value " + value);
 
-  if (parentKey == "properties")
+  if (currentParent == "properties")
   {
-    if (parentKey == "temperature")
+    if (currentParent == "temperature")
     {
       if (currentKey == "value")
       {
@@ -139,12 +139,12 @@ void WeatherClient::endObject()
 
 void WeatherClient::endDocument() {}
 
+void WeatherClient::startArray() {}
+
 void WeatherClient::startObject()
 {
   currentParent = currentKey;
 }
-
-void WeatherClient::startArray() {}
 // end parser event methods
 
 String WeatherClient::getCurrentTemp()

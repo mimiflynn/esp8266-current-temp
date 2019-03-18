@@ -2,7 +2,7 @@
 #include <Ticker.h>
 #include <Adafruit_GFX.h>
 #include "Adafruit_LEDBackpack.h"
-#include "libraries/WeatherClient.h"
+#include "WeatherClient.h"
 
 // WIFI
 const char *WIFI_SSID = "";
