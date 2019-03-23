@@ -15,10 +15,11 @@ This is a mix of several projects to show the current tempurature via Wundergrou
 ## References
 
 [api.weather.gov](https://forecast-v3.weather.gov/documentation)
-[json streaming parser](https://github.com/squix78/json-streaming-parser)
-[HTTPS GET request](https://circuits4you.com/2019/01/10/esp8266-nodemcu-https-secured-get-request/)
 
+[json streaming parser](https://github.com/squix78/json-streaming-parser)
+
+[HTTPS GET request](https://circuits4you.com/2019/01/10/esp8266-nodemcu-https-secured-get-request/)
 
 ## Acknowledgements
 
-The api.weather.gov library is based on the client written by Daniel Eichhorn for the now defunct Wunderground API for his [WeatherStation](https://blog.squix.org/weatherstation-getting-code-adapting-it) kit.
+The api.weather.gov library is based on the Wunderground client written by Daniel Eichhorn for the now defunct Wunderground API for the [Squix WeatherStation](https://blog.squix.org/weatherstation-getting-code-adapting-it) kit.

@@ -5,8 +5,8 @@
 #include "WeatherClient.h"
 
 // WIFI
-const char* WIFI_SSID = "";
-const char* WIFI_PWD = "";
+const char *WIFI_SSID = "";
+const char *WIFI_PWD = "";
 
 // API Settings
 const String WEATHER_STATION = "KNYC";

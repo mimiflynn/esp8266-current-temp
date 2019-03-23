@@ -77,9 +77,9 @@ void WeatherClient::doUpdate(String url)
                "User-Agent: ESP8266\r\n" +
                "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" +
                "Connection: close\r\n\r\n");
-  
+
   int retryCounter = 0;
-  
+
   while (!client.available())
   {
     delay(1000);
@@ -120,7 +120,7 @@ void WeatherClient::whitespace(char c)
   Serial.println("whitespace");
 }
 
-// start parser event methods
+// start json streaming parser event methods
 void WeatherClient::startDocument()
 {
   Serial.println("start document");
