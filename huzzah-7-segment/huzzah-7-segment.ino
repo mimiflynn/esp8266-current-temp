@@ -5,8 +5,8 @@
 #include "WeatherClient.h"
 
 // WIFI
-const char *WIFI_SSID = "";
-const char *WIFI_PWD = "";
+const char* WIFI_SSID = "";
+const char* WIFI_PWD = "";
 
 // Wunderground Settings
 const String WEATHER_STATION = "KNYC";
@@ -56,10 +56,10 @@ void setup()
 
   Serial.println("Connected");
 
+  updateWeather();
+
   // Start timer
   ticker.attach(UPDATE_INTERVAL_SECS, setReadyForWeatherUpdate);
-
-  updateWeather();
 }
 
 void loop()
@@ -81,9 +81,9 @@ void updateWeather()
   Serial.println("Updating weather");
   weather.updateConditions(WEATHER_STATION);
   Serial.println("Weather Updated");
-  String temp = weather.getCurrentTemp();
+  int temp = weather.getCurrentTemp();
   Serial.println("Current Temp:" + temp);
-  matrix.print(temp.toInt());
+  matrix.print(temp);
   matrix.writeDisplay();
   Serial.println("Setting readyForUpdate to false");
   readyForWeatherUpdate = false;

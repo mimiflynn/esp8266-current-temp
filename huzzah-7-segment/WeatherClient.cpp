@@ -138,7 +138,7 @@ void WeatherClient::value(String value)
     if (currentKey == "value")
     {
       Serial.println("value " + value);
-      currentTemp = value;
+      cToF(value);
     }
   }
 }
@@ -160,7 +160,15 @@ void WeatherClient::startObject()
 }
 // end parser event methods
 
-String WeatherClient::getCurrentTemp()
+void WeatherClient::cToF(String c)
 {
+  Serial.println("celcius " + c);
+  currentTemp = c.toInt() * 1.8 + 32;
+  Serial.println("currentTemp F " + currentTemp);
+}
+
+int WeatherClient::getCurrentTemp()
+{
+  Serial.println("get current temp" + currentTemp);
   return currentTemp;
 }

@@ -39,13 +39,14 @@ class WeatherClient : public JsonListener
 private:
   String currentKey;
   String currentParent = "";
-  String currentTemp;
+  int currentTemp;
   void doUpdate(String url);
 
 public:
   WeatherClient();
   void updateConditions(String stationId);
-  String getCurrentTemp();
+  void cToF(String c);
+  int getCurrentTemp();
 
   virtual void whitespace(char c);
   virtual void startDocument();
