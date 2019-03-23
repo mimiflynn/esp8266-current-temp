@@ -129,22 +129,16 @@ void WeatherClient::startDocument()
 void WeatherClient::key(String key)
 {
   currentKey = String(key);
-  Serial.println("currentKey " + currentKey);
 }
 
 void WeatherClient::value(String value)
 {
-  Serial.println("currentKey " + currentKey);
-  Serial.println("value " + value);
-
-  if (currentParent == "properties")
+  if (currentParent == "temperature")
   {
-    if (currentParent == "temperature")
+    if (currentKey == "value")
     {
-      if (currentKey == "value")
-      {
-        currentTemp = value;
-      }
+      Serial.println("value " + value);
+      currentTemp = value;
     }
   }
 }
