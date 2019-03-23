@@ -3,9 +3,8 @@
 #include <TM1637Display.h>
 #include "WeatherClient.h"
 
-// Set the CLK pin connection to the display
+// Set up display pins
 const int CLK = D2;
-// Set the DIO pin connection to the display
 const int DIO = D3;
 
 // WIFI
@@ -13,7 +12,6 @@ const char *WIFI_SSID = "";
 const char *WIFI_PWD = "";
 
 // API Settings
-const boolean IS_METRIC = false;
 const String WEATHER_STATION = "KNYC";
 
 // Update every 10 minutes
@@ -32,7 +30,7 @@ Ticker ticker;
 TM1637Display display(CLK, DIO);
 
 // init weather api library
-WeatherClient weather(IS_METRIC);
+WeatherClient weather();
 
 void setup()
 {

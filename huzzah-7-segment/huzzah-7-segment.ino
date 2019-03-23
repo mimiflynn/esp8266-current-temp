@@ -8,7 +8,7 @@
 const char* WIFI_SSID = "";
 const char* WIFI_PWD = "";
 
-// Wunderground Settings
+// API Settings
 const String WEATHER_STATION = "KNYC";
 
 // Update every 10 minutes
