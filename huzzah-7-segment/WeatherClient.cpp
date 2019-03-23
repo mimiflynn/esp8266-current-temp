@@ -27,13 +27,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 See more at http://blog.squix.ch
+
+Secure client example at: https://github.com/esp8266/Arduino/blob/master/libraries/ESP8266WiFi/examples/HTTPSRequest/HTTPSRequest.ino
+
+https://circuits4you.com/2019/01/10/esp8266-nodemcu-https-secured-get-request/
+
 */
+#define DEBUG_SSL
+#define DEBUGV
 
 #include <ESP8266WiFi.h>
-#include <WiFiClient.h>
+#include <WiFiClientSecure.h>
 #include "WeatherClient.h"
 
 const String API_URL = "api.weather.gov";
+const int httpsPort = 443;
+const char fingerprint[] PROGMEM = "1C E6 10 E0 6D 39 26 74 EE 44 3A 46 9B 44 99 77 AC A3 D4 72";
 
 WeatherClient::WeatherClient()
 {
@@ -46,30 +55,39 @@ void WeatherClient::updateConditions(String stationId)
 
 void WeatherClient::doUpdate(String url)
 {
+  Serial.setDebugOutput(true);
   JsonStreamingParser parser;
   parser.setListener(this);
-  WiFiClient client;
-  const int httpPort = 80;
-  if (!client.connect(API_URL, httpPort))
+  WiFiClientSecure client;
+
+  Serial.print("Requesting URL: ");
+  Serial.println(url);
+  Serial.printf("Using fingerprint '%s'\n", fingerprint);
+  client.setFingerprint(fingerprint);
+
+  if (!client.connect(API_URL, httpsPort))
   {
     Serial.println("connection failed");
     return;
   }
 
-  Serial.print("Requesting URL: ");
-  Serial.println(url);
-
   // This will send the request to the server
   client.print(String("GET ") + url + " HTTP/1.1\r\n" +
                "Host:" + API_URL + "\r\n" +
+               "User-Agent: ESP8266\r\n" +
+               "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" +
                "Connection: close\r\n\r\n");
+  
   int retryCounter = 0;
+  
   while (!client.available())
   {
     delay(1000);
     retryCounter++;
     if (retryCounter > 10)
     {
+      Serial.println("Retry counter");
+      Serial.println(retryCounter);
       return;
     }
   }
@@ -111,6 +129,7 @@ void WeatherClient::startDocument()
 void WeatherClient::key(String key)
 {
   currentKey = String(key);
+  Serial.println("currentKey " + currentKey);
 }
 
 void WeatherClient::value(String value)
