@@ -1,7 +1,7 @@
 #include <ESP8266WiFi.h>
 #include <Ticker.h>
 #include <TM1637Display.h>
-#include "../lib/ApiWeatherGovClient.h"
+#include "WeatherClient.h"
 
 // Set the CLK pin connection to the display
 const int CLK = D2;
@@ -57,10 +57,10 @@ void setup()
 
   Serial.println("Connected");
 
+  updateWeather();
+
   // Start timer
   ticker.attach(UPDATE_INTERVAL_SECS, setReadyForWeatherUpdate);
-
-  updateWeather();
 }
 
 void loop()
@@ -80,12 +80,11 @@ void setReadyForWeatherUpdate()
 void updateWeather()
 {
   Serial.println("Updating weather");
-  weather.initMetric(IS_METRIC);
   weather.updateConditions(WEATHER_STATION);
   Serial.println("Weather Updated");
-  String temp = weather.getCurrentTemp();
+  int temp = weather.getCurrentTemp();
   Serial.println("Current Temp:" + temp);
-  display.showNumberDec(temp.toInt());
+  display.showNumberDec(temp);
   Serial.println("Setting readyForUpdate to false");
   readyForWeatherUpdate = false;
 }
