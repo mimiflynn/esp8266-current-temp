@@ -36,8 +36,10 @@ void setup()
   Serial.println("Setting up");
 
   alpha4.begin(0x70);
-  // print a hex number
-  alpha4.writeDigitRaw(3, 0x0);
+  alpha4.writeDigitAscii(0, 'H');
+  alpha4.writeDigitAscii(1, 'I');
+  alpha4.writeDigitAscii(2, 'Y');
+  alpha4.writeDigitAscii(3, 'A');
   alpha4.writeDisplay();
   delay(500);
 
@@ -85,8 +87,8 @@ void updateWeather()
   char displayBuffer[4];
   Serial.println("Current Temp:" + temp);
   itoa(temp, displayBuffer, 10);
-  // alpha4.writeDigitAscii(0, displayBuffer[0]);
-  // alpha4.writeDigitAscii(1, displayBuffer[1]);
+  alpha4.writeDigitRaw(0, 0x0);
+  alpha4.writeDigitRaw(1, 0x0);
   alpha4.writeDigitAscii(2, displayBuffer[0]);
   alpha4.writeDigitAscii(3, displayBuffer[1]);
   alpha4.writeDisplay();
