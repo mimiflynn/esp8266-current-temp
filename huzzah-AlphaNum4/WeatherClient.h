@@ -40,6 +40,7 @@ private:
   String currentKey;
   String currentParent = "";
   int currentTemp;
+  String currentCond;
   void doUpdate(String url);
 
 public:
@@ -47,6 +48,7 @@ public:
   void updateConditions(String stationId);
   void cToF(String c);
   int getCurrentTemp();
+  String getCurrentConditions();
 
   virtual void whitespace(char c);
   virtual void startDocument();

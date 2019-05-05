@@ -141,6 +141,14 @@ void WeatherClient::value(String value)
       cToF(value);
     }
   }
+  if (currentParent == "properties")
+  {
+    if (currentKey == "textDescription")
+    {
+      Serial.println("value " + value);
+      currentCond = value;
+    }
+  }
 }
 
 void WeatherClient::endArray() {}
@@ -171,4 +179,10 @@ int WeatherClient::getCurrentTemp()
 {
   Serial.println("get current temp" + currentTemp);
   return currentTemp;
+}
+
+String WeatherClient::getCurrentConditions()
+{
+  Serial.println("get current conditions" + currentCond);
+  return currentCond;
 }
