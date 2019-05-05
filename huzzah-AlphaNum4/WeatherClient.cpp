@@ -137,7 +137,7 @@ void WeatherClient::value(String value)
   {
     if (currentKey == "value")
     {
-      Serial.println("value " + value);
+      Serial.println("temp " + value);
       cToF(value);
     }
   }
@@ -145,7 +145,7 @@ void WeatherClient::value(String value)
   {
     if (currentKey == "textDescription")
     {
-      Serial.println("value " + value);
+      Serial.println("conditions " + value);
       currentCond = value;
     }
   }
