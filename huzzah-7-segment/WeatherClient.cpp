@@ -42,7 +42,7 @@ https://circuits4you.com/2019/01/10/esp8266-nodemcu-https-secured-get-request/
 
 const String API_URL = "api.weather.gov";
 const int httpsPort = 443;
-const char fingerprint[] PROGMEM = "1C E6 10 E0 6D 39 26 74 EE 44 3A 46 9B 44 99 77 AC A3 D4 72";
+const char fingerprint[] PROGMEM = "29 F0 37 BA CE 86 3C 94 3C 3B DF 2C E5 30 3A 24 3E AE F4 91";
 
 WeatherClient::WeatherClient()
 {
