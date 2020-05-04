@@ -29,6 +29,8 @@ Adafruit_7segment matrix = Adafruit_7segment();
 // init weather api library
 WeatherClient weather;
 
+int temp = 500;
+
 void setup()
 {
   Serial.begin(115200);
@@ -64,6 +66,7 @@ void setup()
 
 void loop()
 {
+  displayData();
   if (readyForWeatherUpdate)
   {
     updateWeather();
@@ -76,15 +79,19 @@ void setReadyForWeatherUpdate()
   readyForWeatherUpdate = true;
 }
 
+void displayData() {
+  matrix.print(temp);
+  matrix.writeDisplay();
+}
+
 void updateWeather()
 {
   Serial.println("Updating weather");
   weather.updateConditions(WEATHER_STATION);
   Serial.println("Weather Updated");
-  int temp = weather.getCurrentTemp();
+  temp = weather.getCurrentTemp();
   Serial.println("Current Temp:" + temp);
-  matrix.print(temp);
-  matrix.writeDisplay();
+  displayData();
   Serial.println("Setting readyForUpdate to false");
   readyForWeatherUpdate = false;
 }

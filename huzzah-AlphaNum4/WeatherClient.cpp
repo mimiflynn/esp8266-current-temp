@@ -42,7 +42,7 @@ https://circuits4you.com/2019/01/10/esp8266-nodemcu-https-secured-get-request/
 
 const String API_URL = "api.weather.gov";
 const int httpsPort = 443;
-const char fingerprint[] PROGMEM = "1C E6 10 E0 6D 39 26 74 EE 44 3A 46 9B 44 99 77 AC A3 D4 72";
+const char fingerprint[] PROGMEM = "07 E3 28 64 91 8F 42 38 A0 54 2A 2C CD C1 7C 98 79 8C A1 D8";
 
 WeatherClient::WeatherClient()
 {
@@ -50,6 +50,7 @@ WeatherClient::WeatherClient()
 
 void WeatherClient::updateConditions(String stationId)
 {
+  /* https://api.weather.gov/stations/KNYC/observations/latest */
   doUpdate("/stations/" + stationId + "/observations/latest");
 }
 
@@ -165,7 +166,7 @@ void WeatherClient::startArray() {}
 void WeatherClient::startObject()
 {
   currentParent = currentKey;
-}
+} 
 // end parser event methods
 
 void WeatherClient::cToF(String c)

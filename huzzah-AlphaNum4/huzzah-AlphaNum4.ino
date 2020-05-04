@@ -36,12 +36,8 @@ void setup()
   Serial.println("Setting up");
 
   alpha4.begin(0x70);
-  alpha4.writeDigitAscii(0, 'H');
-  alpha4.writeDigitAscii(1, 'I');
-  alpha4.writeDigitAscii(2, 'Y');
-  alpha4.writeDigitAscii(3, 'A');
-  alpha4.writeDisplay();
-  delay(500);
+  String greeting = "HIYA";
+  scrollString(greeting);
 
   WiFi.begin(WIFI_SSID, WIFI_PWD);
 
@@ -78,20 +74,31 @@ void setReadyForWeatherUpdate()
   readyForWeatherUpdate = true;
 }
 
+void scrollString(String conditions)
+{
+  char c[50];
+  conditions.toCharArray(c, 50);
+
+  for (int i = 0; i <= strlen(c); i++)
+  {
+    alpha4.writeDigitAscii(0, c[i]);
+    alpha4.writeDigitAscii(1, c[i + 1]);
+    alpha4.writeDigitAscii(2, c[i + 2]);
+    alpha4.writeDigitAscii(3, c[i + 3]);
+    alpha4.writeDisplay();
+
+    delay(300);
+  }
+}
+
 void updateWeather()
 {
   Serial.println("Updating weather");
   weather.updateConditions(WEATHER_STATION);
   Serial.println("Weather Updated");
-  int temp = weather.getCurrentTemp();
-  char displayBuffer[4];
-  Serial.println("Current Temp:" + temp);
-  itoa(temp, displayBuffer, 10);
-  alpha4.writeDigitRaw(0, 0x0);
-  alpha4.writeDigitRaw(1, 0x0);
-  alpha4.writeDigitAscii(2, displayBuffer[0]);
-  alpha4.writeDigitAscii(3, displayBuffer[1]);
-  alpha4.writeDisplay();
+  String conditions = weather.getCurrentConditions();
+  Serial.println("Current Conditions:" + conditions);
+  scrollString(conditions);
   Serial.println("Setting readyForUpdate to false");
   readyForWeatherUpdate = false;
 }
