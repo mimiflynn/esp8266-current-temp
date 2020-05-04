@@ -88,6 +88,7 @@ void updateWeather()
 {
   Serial.println("Updating weather");
   weather.updateConditions(WEATHER_STATION);
+  delay(3000);
   Serial.println("Weather Updated");
   temp = weather.getCurrentTemp();
   Serial.println("Current Temp:" + temp);
